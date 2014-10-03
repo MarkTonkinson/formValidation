@@ -63,7 +63,8 @@ app.post('/loginUser', function(req, res) {
 
 	// Loop through users array to see if username/password match
 	for(var i=0; i<users.length; i++) {
-		var loginUser = req.body
+		var loginUser = req.body.user
+		console.log(req.body.user)
 		if(users[i].username === loginUser.username) {
 			if(users[i].password === loginUser.password) {
 				// Username and Password match
@@ -80,7 +81,6 @@ app.post('/loginUser', function(req, res) {
 			// Username doesn't exist...didn't check password
 			response.issue = 'username';
 			response.message = 'Username does not exist.';
-			break;
 		}
 	}
 
@@ -102,6 +102,6 @@ app.post('/signup.verifyUsername', function(req, res) {
 })
 
 app.post('/signup.newUser', function(req, res) {
-	users.push(req.body.user)
+	users.push(req.body.user);
 	res.send({success: true})
 })
