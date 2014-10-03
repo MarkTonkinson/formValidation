@@ -2,20 +2,97 @@
 	<div class='login-signup-menu'>
 		<ul>
 			<!-- Links for toggeling login and signup forms -->
-			<li>Login</li>
-			<li>Signup</li>
+			<li ng-click="showLogin()">Login</li>
+			<li ng-click="showSignup()">Signup</li>
 		</ul>
 	</div>
+	
+
 	<div class='forms-container'>
-		
+	
+
+
+
+
+
 		<!-- Login Form -->
-		<div class='login-signup-form' ng-controller='loginCtrl'>
-			<!-- LOGIN FORM CODE GOES HERE -->
+		<div ng-show="showingLogin" class='login-form' ng-controller='loginCtrl' >  <!-- ng-submit='submitLoginForm(loginForm.$valid)' -->
+			Login:
+			<form name="loginForm" class="form-horizontal" role='form' novalidate> <!-- add ng-show to these later -->
+				<div class="form-group">  <!-- play with color later using validation states -->
+					<label class="col-sm-1 control-label">Username</label>	<!-- the name property on the input is how the ng-if statement access things -->			
+					<input class="form-control" type="text" placeholder="Your creative username" name="username" ng-model='user.username' ng-minlength="5" ng-maxlength='15' required></input>
+
+					<p class='help-block' ng-if='loginForm.username.$error.required && loginForm.username.$dirty'>
+					The username is required.
+					</p>  <!-- this one only shows if they have typed it and then removed it- hence making it dirty because the value changed temporarily -->
+
+					<label class="col-sm-1 control-label">Password</label>
+					<input class="form-control" type="password" placeholder="Your Super Secret Password" name="password" ng-model='user.password' required ng-minlength="5"></input>
+
+					<p ng-show="loginForm.password.$error.minlength" class="help-block">Password is too short.</p>
+					<p ng-show="loginForm.password.$error.required" class="help-block">Password is required</p>
+					<!-- <span class="help-block">Both fields are required to enter site.</span> -->
+					<!-- I've used two different methods to show the erros above- both work ** if you don't do this with bootstrap you may run into some errors- i'm not yet sure what is angular and what is bootstrap- i'll need to figure that out in testing recipe monkey -->
+
+					<button ng-click="submitLogin(user)" type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled='loginForm.$invalid'>Submit</button>
+					<button ng-click='showLogin()' class="btn btn-primary btn-sm btn-block">Cancel</button>
+				</div>
+			</form>
 		</div>
 
+
+
+
+
 		<!-- Signup Form -->
-		<div class='login-signup-form' ng-controller='signupCtrl'>
-		<!-- SIGNUP FORM CODE GOES HERE -->
+		<div ng-show="showingSignup" class='signup-form' ng-controller='signupCtrl'>
+			Signup:
+			<form name="signupForm" class="form-inline" role='form' novalidate>   <!-- ng-submit='submitSignupForm(signupForm.$valid)' -->
+				<div class="form-group">	
+					<label class="sr-only control-label">Name</label>
+					<input class="form-control" type="text" placeholder="Your name" name="name" ng-model='user.firstName' required></input>
+					
+				</div>
+
+				<div class="form-group">
+					<label class="sr-only control-label">Email</label>
+					<input class="form-control" type="email" placeholder="Your email" name="email" ng-model='user.email' required></input>
+				</div>
+
+				<div class="form-group">
+					
+					<label class="sr-only control-label">Username</label>
+					<input class="form-control" type="text" placeholder="New Username" name="username" ng-model='user.username' ng-minlength='5' ng-maxlength='15'required></input>
+
+					
+				</div>
+				
+				<div class="form-group">
+					<label class="sr-only control-label">Phone Number</label>
+					<input class="form-control" type="number" placeholder="Phone Number" name="phonenumber" ng-model='user.phonenumber' required></input>
+				</div>
+				
+				<div class="form-group">
+					<label class="sr-only control-label">Password</label>
+					<input class="form-control" type="password" placeholder="Password" name="password" ng-model='user.password' ng-minlength='5' required></input>
+				</div>
+
+				<div class="form-group">
+					<label class="sr-only control-label">Password Verification Re-enter Password</label>
+					<input class="form-control" type="password" placeholder="Password Verification" name="passwordvalidate" ng-model='passwordvalidate' required></input>  <!-- didn't put this on yet -->
+				</div>
+				<p ng-show="signupForm.username.$error.minlength" class='help-block'>Username is too short</p>
+				<p ng-show="signupForm.username.$error.maxlength" class='help-block'>Username is too long</p>
+				<span class="help-block">All fields are required.</span>
+				
+				<button ng-click="submitSignup(user.username)" type="submit" class="btn btn-primary btn-sm btn-block" ng-disabled='signupForm.$invalid'>Create New Account</button>
+				<button ng-click="showSignup()" class="btn btn-primary btn-sm btn-block">Cancel</button>
+
+				
+				
+				
+			</form>
 		</div>
 
 		

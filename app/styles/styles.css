@@ -122,6 +122,20 @@ body {
 			margin-left: 5px;
 			margin-right: 5px;
 			cursor: pointer;
+			border-bottom: 2px solid black;
 		}
 
+.signup-form {
+	/*margin-left: -250px;
+	width:1000px;*/
+}
+
+.control-label {
+	font-weight: bold;
+	font-size: 2rem;
+}
+
+.btn {
+	margin-top: 20px;
+}
 	
